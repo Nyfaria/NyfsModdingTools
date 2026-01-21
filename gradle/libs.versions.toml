@@ -1,0 +1,22 @@
+# Gradle Version Catalog
+# https://docs.gradle.org/current/userguide/version_catalogs.html
+# This file defines centralized dependency versions for use across Gradle projects
+
+[versions]
+# Define version variables that can be reused
+# Example: minecraft = "1.20.1"
+
+[libraries]
+# Define library dependencies using the format:
+# library-name = { group = "group.id", name = "artifact-name", version.ref = "version-key" }
+# Or using the shorthand:
+# library-name = "group.id:artifact-name:version"
+# Example: minecraft-forge = { group = "net.minecraftforge", name = "forge", version.ref = "minecraft" }
+
+[bundles]
+# Define bundles of dependencies that are commonly used together
+# Example: common = ["library-name-1", "library-name-2"]
+
+[plugins]
+# Define Gradle plugins with their IDs and versions
+# Example: forge-gradle = { id = "net.minecraftforge.gradle", version = "6.0.+" }
