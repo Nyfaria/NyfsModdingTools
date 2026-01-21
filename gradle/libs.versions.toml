@@ -1,22 +1,33 @@
-# Gradle Version Catalog
-# https://docs.gradle.org/current/userguide/version_catalogs.html
-# This file defines centralized dependency versions for use across Gradle projects
-
 [versions]
-# Define version variables that can be reused
-# Example: minecraft = "1.20.1"
+minecraft = "1.20.1"
+common-minecraft = "1.20.1-47.1.3"
+forge = "47.1.3"
+parchment_minecraft = "1.20.1"
+parchment_version = "2023.09.03"
+fabric_api = "0.92.7+1.20.1"
+fabric_loader = "0.18.4"
+forge_version_range = "[47.1.0,)"
+forge_loader_range = "[47,)"
 
 [libraries]
-# Define library dependencies using the format:
-# library-name = { group = "group.id", name = "artifact-name", version.ref = "version-key" }
-# Or using the shorthand:
-# library-name = "group.id:artifact-name:version"
-# Example: minecraft-forge = { group = "net.minecraftforge", name = "forge", version.ref = "minecraft" }
+common-config-api = "fuzs.forgeconfigapiport:forgeconfigapiport-common:8.0.3"
+fabric-config-api = "fuzs.forgeconfigapiport:forgeconfigapiport-fabric:8.0.3"
+mixin-extras = "io.github.llamalad7:mixinextras-forge:0.5.2"
+mixin = "org.spongepowered:mixin:0.8.5"
+
+
 
 [bundles]
-# Define bundles of dependencies that are commonly used together
-# Example: common = ["library-name-1", "library-name-2"]
+mixin-common = ["mixin", "mixin-extras"]
 
 [plugins]
 # Define Gradle plugins with their IDs and versions
 # Example: forge-gradle = { id = "net.minecraftforge.gradle", version = "6.0.+" }
+mdg = { id = "net.neoforged.moddev.legacyforge", version = "2.0.139"}
+mdg-forge = { id = "net.neoforged.moddev.legacyforge" }
+loom = { id = "fabric-loom", version = "1.13-SNAPSHOT"}
+loom-fabric = { id = "fabric-loom" }
+hundred-media = { id = "dev._100media.gradleutils", version = "1.+" }
+regutils = { id = "com.matyrobbrt.mc.registrationutils", version = "1.20.1-2.0.3" }
+regutils-loader = { id = "com.matyrobbrt.mc.registrationutils" }
+mod-publish = { id = "me.modmuss50.mod-publish-plugin", version = "0.5.1"}
