@@ -1,0 +1,45 @@
+{
+  "versions": {
+    "minecraft": "1.21.3",
+    "parchmentMinecraft": "1.21.3",
+    "parchmentVersion": "2024.12.07",
+    "minecraftVersionRange": "[1.21.3, 1.21.4)",
+    "neoforgeVersion": "21.3.95",
+    "neoforgeVersionRange": "[21.3.0,21.4.0)",
+    "neoforgeLoaderRange": "[4,)",
+    "fabric_loader": "0.18.4",
+    "fabric_api": "0.114.1+1.21.3",
+    "config_api": "21.3.5",
+    "geckolib": "4.7.3",
+    "commonnetwork": "1.0.17-1.21.3",
+    "sbl": "1.16.4",
+    "neoFormVersion": "1.21.3-20241023.1319430"
+  },
+
+  "libraries": {
+    "config-api-common": { "group": "fuzs.forgeconfigapiport", "artifact": "forgeconfigapiport-common", "version": "config_api" },
+    "config-api-fabric": { "group": "fuzs.forgeconfigapiport", "artifact": "forgeconfigapiport-fabric", "version": "config_api" },
+    "config-api-neoforge": { "group": "fuzs.forgeconfigapiport", "artifact": "forgeconfigapiport-neoforge", "version": "config_api" },
+    "geckolib-common": { "group": "software.bernie.geckolib", "artifact": "geckolib-common-1.21.3", "version": "geckolib" },
+    "geckolib-neoforge": { "group": "software.bernie.geckolib", "artifact": "geckolib-neoforge-1.21.3", "version": "geckolib" },
+    "geckolib-fabric": { "group": "software.bernie.geckolib", "artifact": "geckolib-fabric-1.21.3", "version": "geckolib" },
+    "commonnetwork-common": { "group": "mysticdrew", "artifact": "common-networking-common", "version": "commonnetwork" },
+    "commonnetwork-neoforge": { "group": "mysticdrew", "artifact": "common-networking-neoforge", "version": "commonnetwork" },
+    "commonnetwork-fabric": { "group": "mysticdrew", "artifact": "common-networking-fabric", "version": "commonnetwork" },
+    "sbl-common": { "group": "net.tslat.smartbrainlib", "artifact": "SmartBrainLib-common-1.21.3", "version": "sbl" },
+    "sbl-neoforge": { "group": "net.tslat.smartbrainlib", "artifact": "SmartBrainLib-neoforge-1.21.3", "version": "sbl" },
+    "sbl-fabric": { "group": "net.tslat.smartbrainlib", "artifact": "SmartBrainLib-fabric-1.21.3", "version": "sbl" }
+  },
+
+  "bundles": {
+  },
+
+  "plugins": {
+    "mdg": { "id": "net.neoforged.moddev", "version": "mdg" },
+    "mdg-loader": { "id": "net.neoforged.moddev", "version": "" },
+    "loom": { "id": "fabric-loom", "version": "1.13-SNAPSHOT" },
+    "loom-loader": { "id": "fabric-loom", "version": "" },
+    "regutils": { "id": "com.matyrobbrt.mc.registrationutils", "version": "1.21.3-0.1.1" },
+    "regutils-loader": { "id": "com.matyrobbrt.mc.registrationutils", "version": "" }
+  }
+}

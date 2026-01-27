@@ -1,8 +1,8 @@
-# NyfsVersionsCatalog
-Versions Catalog for Nyfaria's Mods
+# NyfsModdingTools
+Modding Tools Plugin for Nyfaria's Mods
 
 ## Overview
-This repository provides a centralized Gradle version catalog for managing dependencies across Nyfaria's mods. Using Gradle's version catalog feature provides type-safe dependency management, consistent versioning, and easier maintenance.
+This repository provides a Gradle plugin with modding tools for managing dependencies across Nyfaria's mods. Using Gradle's version catalog feature provides type-safe dependency management, consistent versioning, and easier maintenance.
 
 ## Usage
 
@@ -88,6 +88,77 @@ forge-gradle = { id = "net.minecraftforge.gradle", version = "6.0.+" }
 ```
 
 ## Documentation
+
+### Mod Dependencies Extension
+
+The plugin provides a `modDependencies` extension for managing mod dependencies with automatic metadata file modification. This extension is automatically applied to projects with names containing "fabric", "neoforge", "forge", or "quilt".
+
+#### Usage
+
+In your loader-specific `build.gradle` (e.g., `fabric/build.gradle` or `neoforge/build.gradle`):
+
+```groovy
+modDependencies {
+    requiredMod(nyfs.geckolib.fabric)
+    optionalMod(nyfs.jei.fabric)
+    embeddedMod(nyfs.config.api.fabric)
+}
+```
+
+The plugin automatically extracts the modId and version from the dependency. If you need to override them:
+
+```groovy
+modDependencies {
+    requiredMod("geckolib", "4.8.3", nyfs.geckolib.fabric)
+    optionalMod("jei", "15.2.0", "mezz.jei:jei-1.20.1-fabric:15.2.0.27")
+}
+```
+
+#### Methods
+
+- **`requiredMod(dependency)`** - Adds a required dependency (auto-extracts modId/version)
+- **`requiredMod(modId, version, dependency)`** - Adds a required dependency with explicit modId/version
+  - Adds the dependency to `modImplementation` (Fabric) or `implementation` (NeoForge/Forge)
+  - Adds to `depends` block in `fabric.mod.json`
+  - Adds `type="required"` in `neoforge.mods.toml`
+
+- **`optionalMod(dependency)`** - Adds an optional dependency (auto-extracts modId/version)
+- **`optionalMod(modId, version, dependency)`** - Adds an optional dependency with explicit modId/version
+  - Adds the dependency to `modCompileOnly` (Fabric) or `compileOnly` (NeoForge/Forge)
+  - Adds to `suggests` block in `fabric.mod.json`
+  - Adds `type="optional"` in `neoforge.mods.toml`
+
+- **`embeddedMod(dependency)`** - Adds an embedded/bundled dependency (auto-extracts modId/version)
+- **`embeddedMod(modId, version, dependency)`** - Adds an embedded/bundled dependency with explicit modId/version
+  - Adds the dependency to `include` + `modImplementation` (Fabric) or `jarJar` + `implementation` (NeoForge/Forge)
+  - Adds to `depends` block in `fabric.mod.json`
+  - Adds `type="required"` in `neoforge.mods.toml`
+
+#### Automatic Metadata Modification
+
+The plugin automatically modifies `fabric.mod.json` and `neoforge.mods.toml` at build time (in the output jar only, not the source files):
+
+**Fabric (`fabric.mod.json`):**
+```json
+{
+  "depends": {
+    "geckolib": ">=4.8.3"
+  },
+  "suggests": {
+    "jei": ">=15.2.0"
+  }
+}
+```
+
+**NeoForge/Forge (`neoforge.mods.toml`):**
+```toml
+[[dependencies.yourmodid]]
+modId="geckolib"
+type="required"
+versionRange="[4.8.3,)"
+ordering="NONE"
+side="BOTH"
+```
 
 For more information on Gradle version catalogs, see:
 - [Official Gradle Documentation](https://docs.gradle.org/current/userguide/version_catalogs.html)

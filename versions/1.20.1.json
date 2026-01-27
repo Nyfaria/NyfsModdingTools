@@ -1,0 +1,48 @@
+{
+  "versions": {
+    "minecraft": "1.20.1",
+    "parchmentMinecraft": "1.20.1",
+    "parchmentVersion": "2023.09.03",
+    "minecraftVersionRange": "[1.20, 1.20.2)",
+    "forgeVersion": "47.1.28",
+    "forgeVersionRange": "[47.1.0,)",
+    "forgeLoaderRange": "[47,)",
+    "fabric_loader": "0.18.4",
+    "fabric_api": "0.92.7+1.20.1",
+    "config_api": "8.0.3",
+    "cap_syncer": "1.20.1-4.0.1",
+    "cardinal_components": "5.2.3",
+    "geckolib": "4.8.2",
+    "commonnetwork": "1.0.2-1.20.1",
+    "sbl": "1.15"
+  },
+
+  "libraries": {
+    "config-api-common": { "group": "fuzs.forgeconfigapiport", "artifact": "forgeconfigapiport-common", "version": "config_api" },
+    "config-api-fabric": { "group": "fuzs.forgeconfigapiport", "artifact": "forgeconfigapiport-fabric", "version": "config_api" },
+    "cap-syncer": { "group": "dev._100media.capabilitysyncer", "artifact": "capabilitysyncer", "version": "cap_syncer" },
+    "cc-base": { "group": "dev.onyxstudios.cardinal-components-api", "artifact": "cardinal-components-base", "version": "cardinal_components" },
+    "cc-entity": { "group": "dev.onyxstudios.cardinal-components-api", "artifact": "cardinal-components-entity", "version": "cardinal_components" },
+    "geckolib-forge": { "group": "software.bernie.geckolib", "artifact": "geckolib-forge-1.20.1", "version": "geckolib" },
+    "geckolib-fabric": { "group": "software.bernie.geckolib", "artifact": "geckolib-fabric-1.20.1", "version": "geckolib" },
+    "commonnetwork-common": { "group": "mysticdrew", "artifact": "common-networking-common", "version": "commonnetwork" },
+    "commonnetwork-forge": { "group": "mysticdrew", "artifact": "common-networking-forge", "version": "commonnetwork" },
+    "commonnetwork-fabric": { "group": "mysticdrew", "artifact": "common-networking-fabric", "version": "commonnetwork" },
+    "sbl-common": { "group": "net.tslat.smartbrainlib", "artifact": "SmartBrainLib-common-1.20.1", "version": "sbl" },
+    "sbl-forge": { "group": "net.tslat.smartbrainlib", "artifact": "SmartBrainLib-forge-1.20.1", "version": "sbl" },
+    "sbl-fabric": { "group": "net.tslat.smartbrainlib", "artifact": "SmartBrainLib-fabric-1.20.1", "version": "sbl" }
+  },
+
+  "bundles": {
+    "cc-all": ["cc-base", "cc-entity"]
+  },
+
+  "plugins": {
+    "mdg": { "id": "net.neoforged.moddev.legacyforge", "version": "mdg" },
+    "mdg-vanilla": { "id": "net.neoforged.moddev.legacyforge", "version": "" },
+    "loom": { "id": "fabric-loom", "version": "1.9-SNAPSHOT" },
+    "loom-vanilla": { "id": "fabric-loom", "version": "" },
+    "regutils": { "id": "com.matyrobbrt.mc.registrationutils", "version": "1.20.1-2.0.3" },
+    "regutils-vanilla": { "id": "com.matyrobbrt.mc.registrationutils", "version": "" }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "versions": {
+    "mixin_extras": "0.5.2",
+    "hundred_media": "1.+",
+    "mixin": "0.8.5",
+    "mdg": "2.0.139"
+  },
+
+  "libraries": {
+    "mixin": { "group": "org.spongepowered", "artifact": "mixin", "version": "mixin" },
+    "mixin-extras-common": { "group": "io.github.llamalad7", "artifact": "mixinextras-common", "version": "mixin_extras" },
+    "mixin-extras-forge": { "group": "io.github.llamalad7", "artifact": "mixinextras-forge", "version": "mixin_extras" },
+    "mixin-extras-fabric": { "group": "io.github.llamalad7", "artifact": "mixinextras-fabric", "version": "mixin_extras" },
+    "mixin-extras-neoforge": { "group": "io.github.llamalad7", "artifact": "mixinextras-neoforge", "version": "mixin_extras" },
+    "minecraft": { "group": "net.minecraft", "artifact": "minecraft", "version": "minecraft" },
+    "fabric-loader": { "group": "net.fabricmc", "artifact": "fabric-loader", "version": "fabric_loader" },
+    "fabric-api": { "group": "net.fabricmc.fabric-api", "artifact": "fabric-api", "version": "fabric_api" }
+  },
+
+  "bundles": {
+    "mixin-common": ["mixin", "mixin-extras-common"],
+    "fabric": ["fabric-loader", "fabric-api"]
+  },
+
+  "plugins": {
+    "hundred-media": { "id": "dev._100media.gradleutils", "version": "1.+" },
+    "mod-publish": { "id": "me.modmuss50.mod-publish-plugin", "version": "1.1.0" }
+  }
+}
