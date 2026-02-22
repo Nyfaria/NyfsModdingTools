@@ -15,7 +15,8 @@
     "cardinal_components": "5.2.3",
     "geckolib": "4.8.2",
     "commonnetwork": "1.0.2-1.20.1",
-    "sbl": "1.15"
+    "sbl": "1.15",
+    "dynamictrees": "1.4.10"
   },
 
   "libraries": {
@@ -31,7 +32,8 @@
     "commonnetwork-fabric": { "group": "mysticdrew", "artifact": "common-networking-fabric", "version": "commonnetwork" },
     "sbl-common": { "group": "net.tslat.smartbrainlib", "artifact": "SmartBrainLib-common-1.20.1", "version": "sbl" },
     "sbl-forge": { "group": "net.tslat.smartbrainlib", "artifact": "SmartBrainLib-forge-1.20.1", "version": "sbl" },
-    "sbl-fabric": { "group": "net.tslat.smartbrainlib", "artifact": "SmartBrainLib-fabric-1.20.1", "version": "sbl" }
+    "sbl-fabric": { "group": "net.tslat.smartbrainlib", "artifact": "SmartBrainLib-fabric-1.20.1", "version": "sbl" },
+    "dynamictrees-forge": { "group": "com.ferreusveritas.dynamictrees", "artifact": "DynamicTrees-1.20.1", "version": "dynamictrees" }
   },
 
   "bundles": {

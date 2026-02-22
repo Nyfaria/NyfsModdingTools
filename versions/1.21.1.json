@@ -13,7 +13,9 @@
     "geckolib": "4.8.3",
     "commonnetwork": "1.0.21-1.21.1",
     "sbl": "1.16.11",
-    "neoFormVersion": "1.21.1-20240808.144430"
+    "neoFormVersion": "1.21.1-20240808.144430",
+    "dynamictrees_neoforge": "1.7.0",
+    "dynamictrees_fabric": "1.7.0-BETA1"
   },
 
   "libraries": {
@@ -28,7 +30,9 @@
     "commonnetwork-fabric": { "group": "mysticdrew", "artifact": "common-networking-fabric", "version": "commonnetwork" },
     "sbl-common": { "group": "net.tslat.smartbrainlib", "artifact": "SmartBrainLib-common-1.21.1", "version": "sbl" },
     "sbl-neoforge": { "group": "net.tslat.smartbrainlib", "artifact": "SmartBrainLib-neoforge-1.21.1", "version": "sbl" },
-    "sbl-fabric": { "group": "net.tslat.smartbrainlib", "artifact": "SmartBrainLib-fabric-1.21.1", "version": "sbl" }
+    "sbl-fabric": { "group": "net.tslat.smartbrainlib", "artifact": "SmartBrainLib-fabric-1.21.1", "version": "sbl" },
+    "dynamictrees-neoforge": { "group": "com.dtteam.dynamictrees", "artifact": "dynamictrees-neoforge-1.21.1", "version": "dynamictrees_neoforge" },
+    "dynamictrees-fabric": { "group": "com.dtteam.dynamictrees", "artifact": "dynamictrees-fabric-1.21.1", "version": "dynamictrees_fabric" }
   },
 
   "bundles": {
