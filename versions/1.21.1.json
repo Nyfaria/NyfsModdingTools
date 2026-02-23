@@ -15,7 +15,7 @@
     "sbl": "1.16.11",
     "neoFormVersion": "1.21.1-20240808.144430",
     "dynamictrees_common": "1.7.0",
-    "dynamictrees_neoforge": "7513464",
+    "dynamictrees_neoforge": "1.7.0",
     "dynamictrees_fabric": "1.7.0-BETA02"
   },
 
@@ -33,7 +33,7 @@
     "sbl-neoforge": { "group": "net.tslat.smartbrainlib", "artifact": "SmartBrainLib-neoforge-1.21.1", "version": "sbl" },
     "sbl-fabric": { "group": "net.tslat.smartbrainlib", "artifact": "SmartBrainLib-fabric-1.21.1", "version": "sbl" },
     "dynamictrees-common": { "group": "com.dtteam.dynamictrees", "artifact": "dynamictrees-common-1.21.1", "version": "dynamictrees_common" },
-    "dynamictrees-neoforge": { "group": "curse.maven", "artifact": "dynamictrees-252818", "version": "dynamictrees_neoforge" },
+    "dynamictrees-neoforge": { "group": "com.dtteam.dynamictrees", "artifact": "dynamictrees-neoforge-1.21.1", "version": "dynamictrees_neoforge" },
     "dynamictrees-fabric": { "group": "com.dtteam.dynamictrees", "artifact": "dynamictrees-fabric-1.21.1", "version": "dynamictrees_fabric" }
   },
 
