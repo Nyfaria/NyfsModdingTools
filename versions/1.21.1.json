@@ -15,7 +15,7 @@
     "sbl": "1.16.11",
     "neoFormVersion": "1.21.1-20240808.144430",
     "dynamictrees_neoforge": "1.6.0",
-    "dynamictrees_fabric": "1.7.0-BETA01"
+    "dynamictrees_fabric": "1.7.0-BETA1"
   },
 
   "libraries": {
