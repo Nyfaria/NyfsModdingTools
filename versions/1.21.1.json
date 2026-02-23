@@ -16,7 +16,7 @@
     "neoFormVersion": "1.21.1-20240808.144430",
     "dynamictrees_common": "1.7.0",
     "dynamictrees_neoforge": "7513464",
-    "dynamictrees_fabric": "1.7.0-BETA1"
+    "dynamictrees_fabric": "1.7.0-BETA02"
   },
 
   "libraries": {
