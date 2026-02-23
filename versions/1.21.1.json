@@ -32,7 +32,7 @@
     "sbl-neoforge": { "group": "net.tslat.smartbrainlib", "artifact": "SmartBrainLib-neoforge-1.21.1", "version": "sbl" },
     "sbl-fabric": { "group": "net.tslat.smartbrainlib", "artifact": "SmartBrainLib-fabric-1.21.1", "version": "sbl" },
     "dynamictrees-common": { "group": "com.dtteam.dynamictrees", "artifact": "dynamictrees-common-1.21.1", "version": "dynamictrees_neoforge" },
-    "dynamictrees-neoforge": { "group": "curse.maven", "artifact": "dynamictrees-252818", "version": "7513464" },
+    "dynamictrees-neoforge": { "group": "curse.maven", "artifact": "dynamictrees-252818", "version": 7513464 },
     "dynamictrees-fabric": { "group": "com.dtteam.dynamictrees", "artifact": "dynamictrees-fabric-1.21.1", "version": "dynamictrees_fabric" }
   },
 
