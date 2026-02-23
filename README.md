@@ -169,40 +169,46 @@ The plugin fetches version definitions from GitHub, so you don't need to update 
 - **Default URL**: `https://raw.githubusercontent.com/Nyfaria/NyfsModdingTools/main/versions`
 - **Cache**: `~/.gradle/caches/nyfs-modding-tools/versions/` (24-hour TTL)
 
-### Custom Versions URL
+### Configuration
 
-Host your own version definitions:
-
-**Kotlin (`settings.gradle.kts`):**
-```kotlin
-import com.nyfaria.moddingtools.MinecraftVersions
-
-MinecraftVersions.setVersionsUrl("https://raw.githubusercontent.com/YourUser/YourRepo/main/versions")
-```
+Configure the plugin using the `nyfsModdingTools` block in your `settings.gradle` or `settings.gradle.kts`:
 
 **Groovy (`settings.gradle`):**
 ```groovy
-com.nyfaria.moddingtools.MinecraftVersions.setVersionsUrl("https://raw.githubusercontent.com/YourUser/YourRepo/main/versions")
+plugins {
+    id 'com.nyfaria.moddingtools' version '1.2.0'
+}
+
+nyfsModdingTools {
+    clearCache = true
+    versionsUrl = 'https://raw.githubusercontent.com/YourUser/YourRepo/main/versions'
+}
 ```
 
-Set to `null` to reset to default. Your URL should point to a directory containing:
+**Kotlin (`settings.gradle.kts`):**
+```kotlin
+plugins {
+    id("com.nyfaria.moddingtools") version "1.2.0"
+}
+
+nyfsModdingTools {
+    clearCache.set(true)
+    versionsUrl.set("https://raw.githubusercontent.com/YourUser/YourRepo/main/versions")
+}
+```
+
+### Options
+
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `clearCache` | Boolean | `false` | Clears all cached version data on next build |
+| `versionsUrl` | String | GitHub URL | Custom URL to fetch version definitions from |
+
+Your custom URL should point to a directory containing:
 - `_base.json` - Base version definitions
 - `index.txt` - List of supported Minecraft versions (one per line)
 - `{version}.json` - Version-specific definitions (e.g., `1.21.1.json`)
 
-### Clear Cache
-
-**Kotlin:**
-```kotlin
-MinecraftVersions.clearCache()
-```
-
-**Groovy:**
-```groovy
-com.nyfaria.moddingtools.MinecraftVersions.clearCache()
-```
-
-Or delete `~/.gradle/caches/nyfs-modding-tools/versions/`
 
 ## Supported Minecraft Versions
 

@@ -31,7 +31,7 @@ object MinecraftVersions {
     private var baseData: VersionData? = null
     private var availableVersions: Set<String>? = null
 
-    private const val DEFAULT_VERSIONS_URL = "https://raw.githubusercontent.com/Nyfaria/NyfsModdingTools/main/versions"
+    const val DEFAULT_VERSIONS_URL = "https://raw.githubusercontent.com/Nyfaria/NyfsModdingTools/main/versions"
     private var customVersionsUrl: String? = null
 
     private val versionsBaseUrl: String

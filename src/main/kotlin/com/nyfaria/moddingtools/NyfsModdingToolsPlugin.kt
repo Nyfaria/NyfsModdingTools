@@ -8,6 +8,22 @@ import org.gradle.api.initialization.dsl.VersionCatalogBuilder
 
 class NyfsModdingToolsPlugin : Plugin<Settings> {
     override fun apply(settings: Settings) {
+        val extension = settings.extensions.create("nyfsModdingTools", NyfsModdingToolsExtension::class.java)
+
+        extension.clearCache.convention(false)
+        extension.versionsUrl.convention(MinecraftVersions.DEFAULT_VERSIONS_URL)
+
+        settings.gradle.settingsEvaluated {
+            if (extension.clearCache.get()) {
+                MinecraftVersions.clearCache()
+            }
+
+            val customUrl = extension.versionsUrl.orNull
+            if (customUrl != null && customUrl != MinecraftVersions.DEFAULT_VERSIONS_URL) {
+                MinecraftVersions.setVersionsUrl(customUrl)
+            }
+        }
+
         val minecraftVersion = settings.providers
             .gradleProperty("minecraft_version")
             .orElse(settings.providers.gradleProperty("minecraftVersion"))
