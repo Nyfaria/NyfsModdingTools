@@ -43,7 +43,7 @@
   "plugins": {
     "mdg": { "id": "net.neoforged.moddev", "version": "mdg" },
     "mdg-loader": { "id": "net.neoforged.moddev", "version": "" },
-    "loom": { "id": "fabric-loom", "version": "1.13-SNAPSHOT" },
+    "loom": { "id": "fabric-loom", "version": "1.16.3" },
     "loom-loader": { "id": "fabric-loom", "version": "" },
     "regutils": { "id": "com.matyrobbrt.mc.registrationutils", "version": "1.21.0-0.2.2" },
     "regutils-loader": { "id": "com.matyrobbrt.mc.registrationutils", "version": "" }
