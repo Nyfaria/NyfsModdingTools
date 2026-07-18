@@ -1,0 +1,43 @@
+{
+  "versions": {
+    "minecraft": "26.2",
+    "parchmentMinecraft": "1.21.11",
+    "parchmentVersion": "2025.12.20",
+    "minecraftVersionRange": "[26.2, 26.3)",
+    "neoforgeVersion": "26.2.0.25-beta",
+    "neoforgeVersionRange": "[26.2.0.25-beta,26.3.0)",
+    "neoforgeLoaderRange": "[4,)",
+    "fabric_loader": "0.19.3",
+    "fabric_api": "0.155.2+26.2",
+    "config_api": "26.2.1",
+    "geckolib": "5.5.3",
+    "commonnetwork": "26.2-1.1.0",
+    "sbl": "2.0.0",
+    "neoFormVersion": "26.2-2"
+  },
+
+  "libraries": {
+    "config-api-common": { "group": "fuzs.forgeconfigapiport", "artifact": "forgeconfigapiport-common-neoforgeapi", "version": "config_api" },
+    "config-api-fabric": { "group": "fuzs.forgeconfigapiport", "artifact": "forgeconfigapiport-fabric", "version": "config_api" },
+    "config-api-neoforge": { "group": "fuzs.forgeconfigapiport", "artifact": "forgeconfigapiport-neoforge", "version": "config_api" },
+    "geckolib-common": { "group": "com.geckolib", "artifact": "geckolib-common-26.2", "version": "geckolib" },
+    "geckolib-neoforge": { "group": "com.geckolib", "artifact": "geckolib-neoforge-26.2", "version": "geckolib" },
+    "geckolib-fabric": { "group": "com.geckolib", "artifact": "geckolib-fabric-26.2", "version": "geckolib" },
+    "commonnetwork-common": { "group": "mysticdrew", "artifact": "common-networking-common", "version": "commonnetwork" },
+    "commonnetwork-neoforge": { "group": "mysticdrew", "artifact": "common-networking-neoforge", "version": "commonnetwork" },
+    "commonnetwork-fabric": { "group": "mysticdrew", "artifact": "common-networking-fabric", "version": "commonnetwork" },
+    "sbl-common": { "group": "net.tslat", "artifact": "smartbrainlib-common-26.2", "version": "sbl" },
+    "sbl-neoforge": { "group": "net.tslat", "artifact": "smartbrainlib-neoforge-26.2", "version": "sbl" },
+    "sbl-fabric": { "group": "net.tslat", "artifact": "smartbrainlib-fabric-26.2", "version": "sbl" }
+  },
+
+  "bundles": {
+  },
+
+  "plugins": {
+    "mdg": { "id": "net.neoforged.moddev", "version": "mdg" },
+    "mdg-loader": { "id": "net.neoforged.moddev", "version": "" },
+    "loom": { "id": "fabric-loom", "version": "1.17-SNAPSHOT" },
+    "loom-loader": { "id": "fabric-loom", "version": "" }
+  }
+}
