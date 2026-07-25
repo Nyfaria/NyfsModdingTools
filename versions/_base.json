@@ -1,5 +1,6 @@
 {
   "versions": {
+    "era": "neoobf",
     "mixin_extras": "0.5.2",
     "hundred_media": "1.+",
     "mixin": "0.8.5",

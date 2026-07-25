@@ -1,5 +1,6 @@
 {
   "versions": {
+    "era": "legacy",
     "minecraft": "1.20.1",
     "parchmentMinecraft": "1.20.1",
     "parchmentVersion": "2023.09.03",
@@ -42,10 +43,10 @@
 
   "plugins": {
     "mdg": { "id": "net.neoforged.moddev.legacyforge", "version": "mdg" },
-    "mdg-vanilla": { "id": "net.neoforged.moddev.legacyforge", "version": "" },
+    "mdg-loader": { "id": "net.neoforged.moddev.legacyforge", "version": "" },
     "loom": { "id": "fabric-loom", "version": "1.9-SNAPSHOT" },
-    "loom-vanilla": { "id": "fabric-loom", "version": "" },
+    "loom-loader": { "id": "fabric-loom", "version": "" },
     "regutils": { "id": "com.matyrobbrt.mc.registrationutils", "version": "1.20.1-2.0.3" },
-    "regutils-vanilla": { "id": "com.matyrobbrt.mc.registrationutils", "version": "" }
+    "regutils-loader": { "id": "com.matyrobbrt.mc.registrationutils", "version": "" }
   }
 }
