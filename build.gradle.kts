@@ -52,6 +52,10 @@ gradlePlugin {
             id = "com.nyfaria.moddingtools.dependencies"
             implementationClass = "com.nyfaria.moddingtools.ModDependencyPlugin"
         }
+        create("modPublishing") {
+            id = "com.nyfaria.moddingtools.publishing"
+            implementationClass = "com.nyfaria.moddingtools.ModPublishingPlugin"
+        }
     }
 }
 

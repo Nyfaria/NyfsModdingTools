@@ -2,9 +2,11 @@
 
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
+import org.gradle.work.DisableCachingByDefault
 import java.io.File
 import java.util.Properties
 
+@DisableCachingByDefault(because = "Syncs package names from properties")
 abstract class SyncPackagesTask : DefaultTask() {
 
     private val stateFileName = ".package-state"
