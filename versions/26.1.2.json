@@ -1,5 +1,6 @@
 {
   "versions": {
+    "era": "deobf",
     "minecraft": "26.1.2",
     "minecraftVersionRange": "[26.1, 26.2)",
     "neoforgeVersion": "26.1.2.82",

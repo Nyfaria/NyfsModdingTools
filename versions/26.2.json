@@ -1,8 +1,7 @@
 {
   "versions": {
+    "era": "deobf",
     "minecraft": "26.2",
-    "parchmentMinecraft": "1.21.11",
-    "parchmentVersion": "2025.12.20",
     "minecraftVersionRange": "[26.2, 26.3)",
     "neoforgeVersion": "26.2.0.25-beta",
     "neoforgeVersionRange": "[26.2.0.25-beta,26.3.0)",
