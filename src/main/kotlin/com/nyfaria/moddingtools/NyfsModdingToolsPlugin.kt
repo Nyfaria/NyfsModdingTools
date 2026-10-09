@@ -47,9 +47,72 @@ class NyfsModdingToolsPlugin : Plugin<Settings> {
                 project.repositories.configureModdingRepositories()
                 if (project == project.rootProject) {
                     AutoPackageSync.syncIfNeeded(project)
+                    registerBlockbenchConversion(project, minecraftVersion)
                 }
+                wireBlockbenchResources(project)
+                applyDeobfTransformers(project, minecraftVersion)
             }
         })
+    }
+
+    private fun registerBlockbenchConversion(root: Project, minecraftVersion: String) {
+        val extension = root.extensions.create("blockbenchModels", BlockbenchModelsExtension::class.java)
+        extension.sourceDir.convention("assets")
+        extension.modId.convention(root.providers.gradleProperty("mod_id").orElse(root.name.lowercase()))
+        extension.animations.convention(true)
+        extension.textures.convention(true)
+        extension.textureFolder.convention("")
+        extension.strict.convention(false)
+
+        val catalogVersion = MinecraftVersions.getVersionsFor(minecraftVersion).versions["geckolib"]
+        extension.geckolibVersion.convention(catalogVersion ?: "")
+        val major = extension.geckolibVersion.map { ConversionOptions.majorVersionOf(it) }
+        extension.modelsFolder.convention(major.map { ConversionOptions.modelsFolderFor(it) })
+        extension.animationsFolder.convention(major.map { ConversionOptions.animationsFolderFor(it) })
+
+        root.tasks.register(BLOCKBENCH_TASK, ConvertBlockbenchModelsTask::class.java) {
+            val sourceRoot = extension.sourceDir.map { root.layout.projectDirectory.dir(it) }
+            sourceFiles.from(sourceRoot.map { dir ->
+                if (dir.asFile.isDirectory) root.fileTree(dir) { include("**/*.bbmodel") } else root.files()
+            })
+            this.sourceRoot.set(sourceRoot.map { it.asFile.absolutePath })
+            modId.set(extension.modId)
+            animations.set(extension.animations)
+            textures.set(extension.textures)
+            textureFolder.set(extension.textureFolder)
+            modelsFolder.set(extension.modelsFolder)
+            animationsFolder.set(extension.animationsFolder)
+            strict.set(extension.strict)
+            outputDir.set(root.layout.buildDirectory.dir("generated/blockbench/resources"))
+        }
+    }
+
+    private fun wireBlockbenchResources(project: Project) {
+        if (project.name !in LOADER_PROJECTS) {
+            return
+        }
+        project.plugins.withId("java") {
+            val conversion = project.rootProject.tasks.named(BLOCKBENCH_TASK, ConvertBlockbenchModelsTask::class.java)
+            val sourceSets = project.extensions.getByType(org.gradle.api.plugins.JavaPluginExtension::class.java).sourceSets
+            sourceSets.named("main") {
+                resources.srcDir(conversion.map { it.outputDir })
+            }
+            project.tasks.named("processResources") { dependsOn(conversion) }
+        }
+    }
+
+    private fun applyDeobfTransformers(project: Project, minecraftVersion: String) {
+        if (project.name != "common") {
+            return
+        }
+        if (MinecraftVersions.getVersionsFor(minecraftVersion).versions["era"] != "deobf") {
+            return
+        }
+        val parts = minecraftVersion.split(".")
+        val transformerVersion = if (parts.size >= 3) minecraftVersion else "$minecraftVersion.0"
+        project.plugins.withId("net.neoforged.moddev") {
+            project.dependencies.add("accessTransformers", "net.ashwork.mc:transformers:$transformerVersion.+")
+        }
     }
 
     private fun isIdeSync(settings: Settings): Boolean {
@@ -98,6 +161,7 @@ class NyfsModdingToolsPlugin : Plugin<Settings> {
         maven { url = java.net.URI("https://maven.blamejared.com/") }
         maven { url = java.net.URI("https://api.modrinth.com/maven") }
         maven { url = java.net.URI("https://cursemaven.com") }
+        maven { url = java.net.URI("https://maven.uuid.gg/snapshots") }
     }
 
     private fun applyVersionsForMinecraft(minecraftVersion: String, catalog: VersionCatalogBuilder) {
@@ -124,5 +188,10 @@ class NyfsModdingToolsPlugin : Plugin<Settings> {
                 catalog.plugin(alias, plugin.id).version(plugin.version)
             }
         }
+    }
+
+    companion object {
+        private const val BLOCKBENCH_TASK = "convertBlockbenchModels"
+        private val LOADER_PROJECTS = setOf("fabric", "neoforge", "forge", "quilt")
     }
 }

@@ -1,10 +1,10 @@
 {
   "versions": {
     "era": "neoobf",
-    "mixin_extras": "0.5.2",
+    "mixin_extras": "0.5.5",
     "hundred_media": "1.+",
-    "mixin": "0.8.5",
-    "mdg": "2.0.142"
+    "mixin": "0.8.7",
+    "mdg": "2.0.148"
   },
 
   "libraries": {

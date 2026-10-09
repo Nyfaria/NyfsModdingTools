@@ -7,12 +7,12 @@
     "neoforgeVersion": "21.10.64",
     "neoforgeVersionRange": "[21.10.64,21.11.0)",
     "neoforgeLoaderRange": "[4,)",
-    "fabric_loader": "0.18.4",
+    "fabric_loader": "0.19.5",
     "fabric_api": "0.138.4+1.21.10",
     "config_api": "21.10.1",
     "geckolib": "5.3-alpha-3",
     "commonnetwork": "1.0.22-1.21.10",
-    "sbl": "1.16.11.1",
+    "sbl": "1.16.11",
     "neoFormVersion": "1.21.10-20251010.172816"
   },
 

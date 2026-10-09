@@ -7,7 +7,7 @@
     "neoforgeVersion": "21.9.16-beta",
     "neoforgeVersionRange": "[21.9.16-beta,21.10.0)",
     "neoforgeLoaderRange": "[4,)",
-    "fabric_loader": "0.18.4",
+    "fabric_loader": "0.19.5",
     "fabric_api": "0.134.1+1.21.9",
     "config_api": "21.9.8",
     "geckolib": "5.2.2",

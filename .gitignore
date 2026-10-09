@@ -24,3 +24,5 @@ gradle-app.setting
 .idea/modules.xml
 .idea/NyfsVersionsCatalog.iml
 .idea/vcs.xml
+
+src/test/

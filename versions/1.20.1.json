@@ -6,18 +6,19 @@
     "parchmentVersion": "2023.09.03",
     "minecraftVersionRange": "[1.20, 1.20.2)",
     "forgeVersion": "47.1.28",
-    "forgeVersionNewest": "47.4.16",
+    "forgeVersionNewest": "47.4.26",
     "forgeVersionRange": "[47.1.0,)",
     "forgeLoaderRange": "[47,)",
-    "fabric_loader": "0.18.4",
-    "fabric_api": "0.92.7+1.20.1",
+    "fabric_loader": "0.19.5",
+    "fabric_api": "0.92.12+1.20.1",
     "config_api": "8.0.3",
     "cap_syncer": "1.20.1-4.0.1",
     "cardinal_components": "5.2.3",
-    "geckolib": "4.8.2",
-    "commonnetwork": "1.0.2-1.20.1",
+    "geckolib": "4.8.4",
+    "commonnetwork": "1.0.6-1.20.1",
     "sbl": "1.15",
-    "dynamictrees": "1.4.10"
+    "dynamictrees": "1.4.10",
+    "mixin": "0.8.5"
   },
 
   "libraries": {
