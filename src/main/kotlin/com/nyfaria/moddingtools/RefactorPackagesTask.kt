@@ -298,21 +298,27 @@ abstract class RefactorPackagesTask : DefaultTask() {
             var content = file.readText()
             var modified = false
 
-            val oldPackagePattern = Regex("(package\\s+)${Regex.escape(oldPackage)}")
+            val oldPackagePattern = Regex("(package\\s+)" + PackageRetarget.occurrence(oldPackage, newPackage))
             if (oldPackagePattern.containsMatchIn(content)) {
                 content = oldPackagePattern.replace(content, "$1$newPackage")
                 modified = true
             }
 
-            val oldImportPattern = Regex("(import\\s+)${Regex.escape(oldPackage)}")
+            val oldImportPattern = Regex("(import\\s+)" + PackageRetarget.occurrence(oldPackage, newPackage))
             if (oldImportPattern.containsMatchIn(content)) {
                 content = oldImportPattern.replace(content, "$1$newPackage")
                 modified = true
             }
 
-            val oldStaticImportPattern = Regex("(import\\s+static\\s+)${Regex.escape(oldPackage)}")
+            val oldStaticImportPattern = Regex("(import\\s+static\\s+)" + PackageRetarget.occurrence(oldPackage, newPackage))
             if (oldStaticImportPattern.containsMatchIn(content)) {
                 content = oldStaticImportPattern.replace(content, "$1$newPackage")
+                modified = true
+            }
+
+            val repaired = PackageRetarget.repair(content, newPackage)
+            if (repaired != content) {
+                content = repaired
                 modified = true
             }
 
@@ -392,14 +398,14 @@ abstract class RefactorPackagesTask : DefaultTask() {
             var content = serviceFile.readText()
             var contentModified = false
             if (content.contains(oldPackage)) {
-                content = content.replace(oldPackage, newPackage)
+                content = PackageRetarget.apply(content, oldPackage, newPackage)
                 serviceFile.writeText(content)
                 contentModified = true
                 logger.lifecycle("Updated service file content: ${serviceFile.name}")
             }
 
             if (serviceFile.name.contains(oldPackage)) {
-                val newFileName = serviceFile.name.replace(oldPackage, newPackage)
+                val newFileName = PackageRetarget.repair(PackageRetarget.apply(serviceFile.name, oldPackage, newPackage), newPackage)
                 val newFile = File(servicesDir, newFileName)
                 if (contentModified) {
                     newFile.writeText(content)

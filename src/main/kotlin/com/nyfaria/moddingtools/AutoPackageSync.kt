@@ -279,21 +279,27 @@ object AutoPackageSync {
             var content = file.readText()
             var modified = false
 
-            val oldPackagePattern = Regex("(package\\s+)${Regex.escape(oldPackage)}")
+            val oldPackagePattern = Regex("(package\\s+)" + PackageRetarget.occurrence(oldPackage, newPackage))
             if (oldPackagePattern.containsMatchIn(content)) {
                 content = oldPackagePattern.replace(content, "$1$newPackage")
                 modified = true
             }
 
-            val oldImportPattern = Regex("(import\\s+)${Regex.escape(oldPackage)}")
+            val oldImportPattern = Regex("(import\\s+)" + PackageRetarget.occurrence(oldPackage, newPackage))
             if (oldImportPattern.containsMatchIn(content)) {
                 content = oldImportPattern.replace(content, "$1$newPackage")
                 modified = true
             }
 
-            val oldStaticImportPattern = Regex("(import\\s+static\\s+)${Regex.escape(oldPackage)}")
+            val oldStaticImportPattern = Regex("(import\\s+static\\s+)" + PackageRetarget.occurrence(oldPackage, newPackage))
             if (oldStaticImportPattern.containsMatchIn(content)) {
                 content = oldStaticImportPattern.replace(content, "$1$newPackage")
+                modified = true
+            }
+
+            val repaired = PackageRetarget.repair(content, newPackage)
+            if (repaired != content) {
+                content = repaired
                 modified = true
             }
 
@@ -357,9 +363,12 @@ object AutoPackageSync {
             it.isFile && (it.name.endsWith(".mixins.json") || it.name == "fabric.mod.json" ||
                     it.name == "mods.toml" || it.name == "neoforge.mods.toml")
         }.forEach { file ->
-            var content = file.readText()
-            if (content.contains(oldPackage)) {
-                content = content.replace(oldPackage, newPackage)
+            val original = file.readText()
+            var content = PackageRetarget.repair(
+                PackageRetarget.apply(original, oldPackage, newPackage),
+                newPackage,
+            )
+            if (content != original) {
                 file.writeText(content)
                 logger.lifecycle("[ModdingTools] Updated resource: ${file.name}")
             }
@@ -424,23 +433,24 @@ object AutoPackageSync {
         servicesDir.listFiles()?.forEach { serviceFile ->
             if (!serviceFile.isFile) return@forEach
 
-            var content = serviceFile.readText()
-            var contentModified = false
-            if (content.contains(oldPackage)) {
-                content = content.replace(oldPackage, newPackage)
+            val original = serviceFile.readText()
+            val content = PackageRetarget.repair(
+                PackageRetarget.apply(original, oldPackage, newPackage),
+                newPackage,
+            )
+            val contentModified = content != original
+            if (contentModified) {
                 serviceFile.writeText(content)
-                contentModified = true
                 logger.lifecycle("[ModdingTools] Updated service file content: ${serviceFile.name}")
             }
 
-            if (serviceFile.name.contains(oldPackage)) {
-                val newFileName = serviceFile.name.replace(oldPackage, newPackage)
+            val newFileName = PackageRetarget.repair(
+                PackageRetarget.apply(serviceFile.name, oldPackage, newPackage),
+                newPackage,
+            )
+            if (newFileName != serviceFile.name) {
                 val newFile = File(servicesDir, newFileName)
-                if (contentModified) {
-                    newFile.writeText(content)
-                } else {
-                    serviceFile.copyTo(newFile, overwrite = true)
-                }
+                newFile.writeText(content)
                 serviceFile.delete()
                 logger.lifecycle("[ModdingTools] Renamed service file: ${serviceFile.name} -> $newFileName")
             }
