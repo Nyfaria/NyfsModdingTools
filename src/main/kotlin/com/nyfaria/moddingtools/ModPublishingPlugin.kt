@@ -45,6 +45,22 @@ class ModPublishingPlugin : Plugin<Project> {
         ext.modrinth.projectId.convention(prop("modrinth_project_id") ?: "")
         ext.modrinth.token.convention(tokenProvider(project, "modrinth_token", "MODRINTH_TOKEN"))
 
+        ext.discord.enabled.convention((prop("discord_publishing_enabled") ?: "false").toBoolean())
+        ext.discord.webhookUrl.convention(tokenProvider(project, "discord_webhook_url", "DISCORD_WEBHOOK_URL"))
+        ext.discord.username.convention(prop("discord_username") ?: "$modName Releases")
+        ext.discord.avatarUrl.convention(prop("discord_avatar_url") ?: "")
+        ext.discord.thumbnailUrl.convention(prop("discord_thumbnail_url") ?: "")
+        modIconFile(project, prop("discord_icon_file"), prop("mod_id"))?.let {
+            ext.discord.iconFile.convention(project.layout.file(project.provider { it }))
+        }
+        ext.discord.bannerUrl.convention(prop("discord_banner_url") ?: "")
+        ext.discord.footerText.convention(prop("discord_footer_text") ?: "$modName  •  Minecraft $mcVersion")
+        ext.discord.footerIconUrl.convention(prop("discord_footer_icon_url") ?: "")
+        ext.discord.mentionRoleId.convention(prop("discord_mention_role_id") ?: "")
+        prop("discord_color")?.let { raw ->
+            raw.removePrefix("#").toIntOrNull(16)?.let { ext.discord.color.convention(it) }
+        }
+
         project.afterEvaluate {
             val jarTaskName = if (platform == "fabric") "remapJar" else "jar"
             val jarTask = project.tasks.findByName(jarTaskName) as? AbstractArchiveTask
@@ -88,13 +104,64 @@ class ModPublishingPlugin : Plugin<Project> {
                 jarTask?.let { dependsOn(it) }
             }
 
+            val publishResults = project.layout.buildDirectory.dir("moddingtools/publish")
+            curseTask.configure { resultFile.set(publishResults.map { it.file("1-curseforge.json") }) }
+            modrinthTask.configure { resultFile.set(publishResults.map { it.file("2-modrinth.json") }) }
+
+            val root = project.rootProject
+            val discordTask = if (root.tasks.findByName(DISCORD_TASK) != null) {
+                root.tasks.named(DISCORD_TASK, PublishDiscordTask::class.java)
+            } else {
+                root.tasks.register(DISCORD_TASK, PublishDiscordTask::class.java) {
+                    webhookUrl.set(ext.discord.webhookUrl)
+                    this.modName.set(modName)
+                    modAuthor.set(prop("mod_author") ?: "")
+                    version.set(ext.version)
+                    displayName.set(ext.displayName)
+                    changelog.set(ext.changelog)
+                    releaseType.set(ext.type)
+                    minecraftVersions.set(ext.minecraftVersions)
+                    javaVersion.set(prop("java_version") ?: "")
+                    username.set(ext.discord.username)
+                    avatarUrl.set(ext.discord.avatarUrl)
+                    thumbnailUrl.set(ext.discord.thumbnailUrl)
+                    iconFile.set(ext.discord.iconFile)
+                    bannerUrl.set(ext.discord.bannerUrl)
+                    footerText.set(ext.discord.footerText)
+                    footerIconUrl.set(ext.discord.footerIconUrl)
+                    mentionRoleId.set(ext.discord.mentionRoleId)
+                    color.set(ext.discord.color)
+                    dryRun.set(ext.dryRun)
+                }
+            }
+
+            discordTask.configure {
+                loaders.add(loaderLabel)
+                files.from(ext.file)
+                resultDirs.from(publishResults)
+                onlyIf { ext.discord.enabled.get() }
+                mustRunAfter(curseTask, modrinthTask)
+                jarTask?.let { dependsOn(it) }
+            }
+
             val publishMod = project.tasks.register("publishMod")
             publishMod.configure {
                 group = "modding tools publishing"
                 description = "Publishes the mod to all enabled platforms"
-                dependsOn(curseTask, modrinthTask)
+                dependsOn(curseTask, modrinthTask, discordTask)
             }
         }
+    }
+
+    private fun modIconFile(project: Project, configured: String?, modId: String?): java.io.File? {
+        val root = project.rootProject
+        if (!configured.isNullOrBlank()) return root.file(configured)
+        val candidates = listOfNotNull(
+            modId?.let { "common/src/main/resources/$it.png" },
+            "common/src/main/resources/icon.png",
+            modId?.let { "src/main/resources/$it.png" },
+        )
+        return candidates.map { root.file(it) }.firstOrNull { it.isFile }
     }
 
     private fun tokenProvider(project: Project, propertyName: String, envName: String): Provider<String> =
@@ -114,5 +181,9 @@ class ModPublishingPlugin : Plugin<Project> {
             project.plugins.hasPlugin("net.neoforged.moddev.legacyforge") -> "forge"
             else -> null
         }
+    }
+
+    companion object {
+        private const val DISCORD_TASK = "publishDiscord"
     }
 }

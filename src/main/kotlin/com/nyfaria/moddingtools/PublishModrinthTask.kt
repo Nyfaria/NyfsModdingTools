@@ -2,6 +2,7 @@ package com.nyfaria.moddingtools
 
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
+import com.google.gson.JsonParser
 import org.gradle.api.DefaultTask
 import org.gradle.api.GradleException
 import org.gradle.api.file.RegularFileProperty
@@ -50,6 +51,10 @@ abstract class PublishModrinthTask : DefaultTask() {
     @get:InputFile
     @get:PathSensitive(PathSensitivity.NONE)
     abstract val file: RegularFileProperty
+
+    @get:org.gradle.api.tasks.Optional
+    @get:org.gradle.api.tasks.OutputFile
+    abstract val resultFile: RegularFileProperty
 
     init {
         group = "modding tools publishing"
@@ -104,6 +109,16 @@ abstract class PublishModrinthTask : DefaultTask() {
         if (!result.successful) {
             throw GradleException("Modrinth upload failed (${result.code}): ${result.body}")
         }
+        val versionId = runCatching {
+            (JsonParser.parseString(result.body) as JsonObject).get("id")?.asString
+        }.getOrNull()
+        val slug = projectId.get()
+        PublishResults.write(
+            resultFile.orNull?.asFile,
+            "Modrinth",
+            versionId?.let { "https://modrinth.com/mod/$slug/version/$it" }
+                ?: "https://modrinth.com/mod/$slug",
+        )
         logger.lifecycle("[ModdingTools] Published ${jar.name} to Modrinth")
     }
 

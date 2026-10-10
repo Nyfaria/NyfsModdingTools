@@ -378,6 +378,7 @@ class PackageRefactorer(private val logger: org.gradle.api.logging.Logger) {
 
         updateServiceFiles(resourcesDir, oldPackage, newPackage)
         renameMixinFiles(resourcesDir, oldModId, newModId)
+        renameModIconFile(resourcesDir, oldModId, newModId)
         renameAssetAndDataFolders(resourcesDir, oldModId, newModId)
     }
 
@@ -391,6 +392,16 @@ class PackageRefactorer(private val logger: org.gradle.api.logging.Logger) {
             val newFile = File(resourcesDir, newFileName)
             mixinFile.renameTo(newFile)
             logger.lifecycle("[ModdingTools] Renamed mixin file: ${mixinFile.name} -> $newFileName")
+        }
+    }
+
+    private fun renameModIconFile(resourcesDir: File, oldModId: String, newModId: String) {
+        if (oldModId == newModId) return
+        val icon = File(resourcesDir, "$oldModId.png")
+        if (!icon.isFile) return
+        val renamed = File(resourcesDir, "$newModId.png")
+        if (icon.renameTo(renamed)) {
+            logger.lifecycle("[ModdingTools] Renamed mod icon: ${icon.name} -> ${renamed.name}")
         }
     }
 

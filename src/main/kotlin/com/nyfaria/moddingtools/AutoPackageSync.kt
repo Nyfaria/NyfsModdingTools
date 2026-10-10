@@ -367,7 +367,20 @@ object AutoPackageSync {
 
         updateServiceFiles(resourcesDir, oldPackage, newPackage, logger)
         renameMixinFiles(resourcesDir, oldModId, newModId, logger)
+        renameModIconFile(resourcesDir, oldModId, newModId, logger)
         renameAssetAndDataFolders(resourcesDir, oldModId, newModId, logger)
+    }
+
+    private fun renameModIconFile(resourcesDir: File, oldModId: String, newModId: String, logger: Logger) {
+        if (oldModId == newModId) return
+
+        val icon = File(resourcesDir, "$oldModId.png")
+        if (!icon.isFile) return
+
+        val renamed = File(resourcesDir, "$newModId.png")
+        if (icon.renameTo(renamed)) {
+            logger.lifecycle("[ModdingTools] Renamed mod icon: ${icon.name} -> ${renamed.name}")
+        }
     }
 
     private fun renameMixinFiles(resourcesDir: File, oldModId: String, newModId: String, logger: Logger) {

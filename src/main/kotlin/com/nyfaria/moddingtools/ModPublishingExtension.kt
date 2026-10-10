@@ -12,6 +12,20 @@ abstract class PlatformPublishOptions {
     abstract val token: Property<String>
 }
 
+abstract class DiscordPublishOptions {
+    abstract val enabled: Property<Boolean>
+    abstract val webhookUrl: Property<String>
+    abstract val username: Property<String>
+    abstract val avatarUrl: Property<String>
+    abstract val thumbnailUrl: Property<String>
+    abstract val iconFile: org.gradle.api.file.RegularFileProperty
+    abstract val bannerUrl: Property<String>
+    abstract val footerText: Property<String>
+    abstract val footerIconUrl: Property<String>
+    abstract val mentionRoleId: Property<String>
+    abstract val color: Property<Int>
+}
+
 abstract class ModPublishingExtension {
 
     abstract val displayName: Property<String>
@@ -34,7 +48,12 @@ abstract class ModPublishingExtension {
     @get:Nested
     abstract val modrinth: PlatformPublishOptions
 
+    @get:Nested
+    abstract val discord: DiscordPublishOptions
+
     fun curseforge(action: Action<PlatformPublishOptions>) = action.execute(curseforge)
 
     fun modrinth(action: Action<PlatformPublishOptions>) = action.execute(modrinth)
+
+    fun discord(action: Action<DiscordPublishOptions>) = action.execute(discord)
 }

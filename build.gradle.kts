@@ -15,10 +15,12 @@ repositories {
 dependencies {
     implementation("com.google.code.gson:gson:2.10.1")
     testImplementation(kotlin("test"))
+    testImplementation(gradleTestKit())
 }
 
 tasks.withType<Test>().configureEach {
     useJUnitPlatform()
+    System.getProperty("discord.webhook")?.let { systemProperty("discord.webhook", it) }
     testLogging {
         events("failed")
         showStandardStreams = true

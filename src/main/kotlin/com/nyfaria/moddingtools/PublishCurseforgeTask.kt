@@ -58,6 +58,10 @@ abstract class PublishCurseforgeTask : DefaultTask() {
     @get:PathSensitive(PathSensitivity.NONE)
     abstract val file: RegularFileProperty
 
+    @get:org.gradle.api.tasks.Optional
+    @get:org.gradle.api.tasks.OutputFile
+    abstract val resultFile: RegularFileProperty
+
     init {
         group = "modding tools publishing"
         description = "Publishes the mod to CurseForge"
@@ -118,6 +122,15 @@ abstract class PublishCurseforgeTask : DefaultTask() {
         if (!result.successful) {
             throw GradleException("CurseForge upload failed (${result.code}): ${result.body}")
         }
+        val fileId = runCatching {
+            (JsonParser.parseString(result.body) as JsonObject).get("id")?.asString
+        }.getOrNull()
+        PublishResults.write(
+            resultFile.orNull?.asFile,
+            "CurseForge",
+            fileId?.let { "https://www.curseforge.com/projects/$project/files/$it" }
+                ?: "https://www.curseforge.com/projects/$project",
+        )
         logger.lifecycle("[ModdingTools] Published ${jar.name} to CurseForge")
     }
 

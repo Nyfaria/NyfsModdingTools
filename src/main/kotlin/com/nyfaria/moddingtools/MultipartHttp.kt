@@ -22,6 +22,21 @@ object MultipartHttp {
         return connection.read()
     }
 
+    fun postJson(url: String, body: String, headers: Map<String, String> = emptyMap()): HttpResult {
+        val connection = URL(url).openConnection() as HttpURLConnection
+        connection.requestMethod = "POST"
+        connection.doOutput = true
+        connection.connectTimeout = 15000
+        connection.readTimeout = 30000
+        connection.setRequestProperty("Content-Type", "application/json")
+        connection.setRequestProperty("User-Agent", "NyfsModdingTools")
+        headers.forEach { (key, value) -> connection.setRequestProperty(key, value) }
+        val payload = body.toByteArray(Charsets.UTF_8)
+        connection.setRequestProperty("Content-Length", payload.size.toString())
+        connection.outputStream.use { it.write(payload) }
+        return connection.read()
+    }
+
     fun postMultipart(
         url: String,
         headers: Map<String, String>,
